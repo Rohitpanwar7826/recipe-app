@@ -1,7 +1,6 @@
 import { isEmpty } from "lodash"
 import Heading from "../../shared/Heading"
-import List from "./List"
-import { GET_FAVORITE_LISTS } from "../Favourite/ListFav/gqlState"
+import List from "../Lists/List"
 
 function DisplayList({ title, lists }) {
   return (
@@ -9,7 +8,7 @@ function DisplayList({ title, lists }) {
       <Heading title={title} />
       <div className='d-flex flex-row flex-wrap justify-content-center' data-aos="fade-right">
         {lists.map(list => (
-          < List list={list} key={list.id} refetchQueriesComp={[GET_FAVORITE_LISTS]} />
+          < List list={list.likeable} key={list.likeable.id+list.user.id} />
         ))}
       </div>
       <h1 className='text-center'> {isEmpty(lists) ? "No records.." : null} </h1>

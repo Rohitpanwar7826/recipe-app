@@ -7,26 +7,14 @@ import { CREATE_LIKE } from './gql_create_like_stat';
 import { connect } from 'react-redux';
 import { errorMessageDark, updatedLoadingMessage, updatedLoadingMessageToSuccess, updatedLoadingMessageToError } from '../../../ToasterType';
 import { GET_LIST_COUNT_AND_CATEGORE_COUNT } from '../../../Header/gql_list_count_and_categore_count';
-import { GET_FAVORITE_LISTS } from '../../Favourite/ListFav/gqlState';
 
-// interface ListProps {
-//   list: {
-//     id: string,
-//     image: string,
-//     name: string,
-//     totalLikes: number,
-//     updatedAt: string
-//   },
-//   currentUserId: string
-// }
-
-const List = ({ list }) => {
+const List = ({ list, refetchQueriesComp=[] }) => {
   const likeLoadingId = useRef();
 
   const [listData, setListData] = useState(list)
   const [createLike, { loading, error }] = useMutation(CREATE_LIKE,
     {
-      refetchQueries: [GET_FAVORITE_LISTS, GET_LIST_COUNT_AND_CATEGORE_COUNT],
+      refetchQueries: [GET_LIST_COUNT_AND_CATEGORE_COUNT, ...refetchQueriesComp],
       onCompleted(data, clientOptions) {
         updatedLoadingMessageToSuccess(likeLoadingId.current, "Successfully")
         if (data.like.success) setListData(data.like.response)

@@ -19,7 +19,7 @@ const Login = (props: any) => {
   const [formFieldError, setFormFieldError] = useState("");
   const [formSubmit, setFormSubmit] = useState(false);
   const [submitLogin, { data, loading, error }] = useLazyQuery(LOGIN_USER, {
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'network-only',
     nextFetchPolicy: 'no-cache',
   })
   const handleForm = (event: React.FormEvent<HTMLInputElement>) => {
@@ -44,6 +44,7 @@ const Login = (props: any) => {
     setFormSubmit(true);
   }
 
+  
   useEffect(() => {
     if (formSubmit && isEmpty(formFieldError)) {
       props.action.loadingUserState()
@@ -55,22 +56,25 @@ const Login = (props: any) => {
   }, [formSubmit])
 
   useEffect(() => {
+    console.log(error, "fd")
     if (data) {
       const { validateUser, user } = data?.login;
       if (validateUser) {
         props.action.setCurrentUserAttr(user)
         props.action.signInUserAuth(user)
         infoMessageDark('Welcome ' + user.name)
+        setFormData(initialFormData);
       }
       else {
         props.action.notUserLoading()
         errorMessageDark('User email or password not found.')
       }
-      setFormData(initialFormData);
     }
-  }, [data, props.action])
-
-  if(error) setFormFieldError(error.message)
+  }, [data])
+  
+  if(error){
+    errorMessageDark(error.message)
+  }
   
   return (
     <div className="container">
