@@ -69,8 +69,8 @@ module Types
 
     def recent_liked
       {
-        lists: Like.lists.includes(:user, likeable: :likes).order(created_at: :desc).uniq(&:user_id).first(10),
-        categories: Like.categories.includes(:user,likeable: :likes).order(created_at: :desc).uniq(&:user_id).first(10)
+        lists: Like.lists.includes(:user, likeable: :likes).order(created_at: :desc).first(10).uniq(&:likeable_id),
+        categories: Like.categories.includes(:user,likeable: :likes).order(created_at: :desc).first(10).uniq(&:likeable_id)
       }
     end
 
