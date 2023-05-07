@@ -1,39 +1,37 @@
 import { useRef, useState } from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { Link } from 'react-router-dom'
-import { useMutation } from '@apollo/client';
+import { Link, useParams } from 'react-router-dom'
+import { empty, useMutation } from '@apollo/client';
 import { CREATE_LIKE } from './gql_create_like_stat';
 import { connect } from 'react-redux';
 import { errorMessageDark, updatedLoadingMessage, updatedLoadingMessageToSuccess, updatedLoadingMessageToError } from '../../../ToasterType';
 import { GET_LIST_COUNT_AND_CATEGORE_COUNT } from '../../../Header/gql_list_count_and_categore_count';
-import { GET_FAVORITE_LISTS } from '../../Favourite/ListFav/gqlState';
+import { isEmpty } from 'lodash';
+import { GET_LIST_CATEGORIES } from '../../../gql/CategoriesList';
 
-// interface ListProps {
-//   list: {
-//     id: string,
-//     image: string,
-//     name: string,
-//     totalLikes: number,
-//     updatedAt: string
-//   },
-//   currentUserId: string
-// }
-
-const List = ({ list }) => {
+const List = ({ list, refetchQueriesComp = [] }) => {
+  const { category_id: CategoreID } = useParams();
   const likeLoadingId = useRef();
 
   const [listData, setListData] = useState(list)
   const [createLike, { loading, error }] = useMutation(CREATE_LIKE,
     {
-      refetchQueries: [GET_FAVORITE_LISTS, GET_LIST_COUNT_AND_CATEGORE_COUNT],
+      refetchQueries: [GET_LIST_COUNT_AND_CATEGORE_COUNT],
       onCompleted(data, clientOptions) {
         updatedLoadingMessageToSuccess(likeLoadingId.current, "Successfully")
-        if (data.like.success) setListData(data.like.response)
       },
       onError(error, clientOptions) {
         updatedLoadingMessageToError(likeLoadingId.current, error.message)
       },
+      update(cache, { data }) {
+        if (!isEmpty(refetchQueriesComp)) {
+          const identity = cache.identify(listData)
+          cache.evict({ id: identity });
+        } else {
+          setListData(data.like.response)
+        }
+      }
     }
   )
 

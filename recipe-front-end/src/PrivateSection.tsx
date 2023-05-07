@@ -5,10 +5,8 @@ import Loader from './components/shared/Loader';
 
 const PrivateSection = (props: any) => {
   const navigate = useNavigate();
-  const location = useLocation();
   useEffect(() => {
     if(!props.loggedIn){
-      // errorMessageLight("You need to sign-in before continue.")
       navigate("/login")
     }
   }, [props.loggedIn])

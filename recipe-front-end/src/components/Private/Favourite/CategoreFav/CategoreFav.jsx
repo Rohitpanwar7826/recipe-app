@@ -11,7 +11,6 @@ const CategoreFav = () => {
   if (error) {
     errorMessageDark(error.graphQLErrors)
   }
-  console.log(data)
   return (
     <>
       < Heading title="Favorite Categorie's" />
