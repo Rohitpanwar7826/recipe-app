@@ -13,7 +13,7 @@ const ListFav = () => {
     return <h1> {error.message} </h1>
   }
   return (
-    <DisplayList title="Favorite List" lists={data.favLists}/>
+    <DisplayList title="Favorite List" lists={data.favLists} refetchQueriesComp={[GET_FAVORITE_LISTS]}/>
   )
 }
 

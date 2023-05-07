@@ -1,15 +1,14 @@
 import { isEmpty } from "lodash"
 import Heading from "../../shared/Heading"
 import List from "./List"
-import { GET_FAVORITE_LISTS } from "../Favourite/ListFav/gqlState"
 
-function DisplayList({ title, lists }) {
+function DisplayList({ title, lists, refetchQueriesComp=[] }) {
   return (
     <div className='w-100'>
       <Heading title={title} />
       <div className='d-flex flex-row flex-wrap justify-content-center' data-aos="fade-right">
         {lists.map(list => (
-          < List list={list} key={list.id} refetchQueriesComp={[GET_FAVORITE_LISTS]} />
+          < List list={list} key={list.id} refetchQueriesComp={refetchQueriesComp} />
         ))}
       </div>
       <h1 className='text-center'> {isEmpty(lists) ? "No records.." : null} </h1>

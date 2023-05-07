@@ -17,11 +17,9 @@ const Lists = () => {
     return <div classNameName='error'>Error: {error.message}</div>;
   }
   return (
-   <>
-    {
-      categoryLists.lists.success ? < DisplayList title={categoryLists.lists.success ? categoryLists.lists.categorieName : "No Categories Found"} lists={categoryLists.lists.result}/> : <h1> An error catch we try to fix this..! </h1>
-    }
-   </>
+    <>
+      < DisplayList title={categoryLists.lists.success ? categoryLists.lists.categorieName : "No Categories Found"} lists={categoryLists.lists.result} />
+    </>
   );
 }
 

@@ -56,7 +56,6 @@ const Login = (props: any) => {
   }, [formSubmit])
 
   useEffect(() => {
-    console.log(error, "fd")
     if (data) {
       const { validateUser, user } = data?.login;
       if (validateUser) {
