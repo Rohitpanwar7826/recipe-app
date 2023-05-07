@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { errorMessageDark, updatedLoadingMessage, updatedLoadingMessageToSuccess, updatedLoadingMessageToError } from '../../../ToasterType';
 import { GET_LIST_COUNT_AND_CATEGORE_COUNT } from '../../../Header/gql_list_count_and_categore_count';
 import { isEmpty } from 'lodash';
-import { GET_LIST_CATEGORIES } from '../../../gql/CategoriesList';
 
 const List = ({ list, refetchQueriesComp = [] }) => {
   const { category_id: CategoreID } = useParams();
