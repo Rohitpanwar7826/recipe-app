@@ -8,7 +8,7 @@ class LiveRecipeJob < ApplicationJob
   end
 
   def process
-    details = Detail.joins(imakes: :user).order(created: :desc).limit(10)
+    details = Detail.joins(imakes: :user).order(created_at: :desc).limit(10)
     detail_connection = details.inject([]) do |prev_collection, current_detail|
       users = find_users_associated_with_detail(current_detail)
       prev_collection << {
