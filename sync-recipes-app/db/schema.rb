@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_23_180127) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_174506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_180127) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_details_on_list_id"
+  end
+
+  create_table "i_makes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "detail_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["detail_id"], name: "index_i_makes_on_detail_id"
+    t.index ["user_id"], name: "index_i_makes_on_user_id"
   end
 
   create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -78,6 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_180127) do
   end
 
   add_foreign_key "details", "lists"
+  add_foreign_key "i_makes", "details"
+  add_foreign_key "i_makes", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "lists", "categories"
 end

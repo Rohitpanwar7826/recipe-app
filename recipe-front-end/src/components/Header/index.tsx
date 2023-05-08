@@ -19,7 +19,7 @@ const styleColorTheme = {
 
 
 const Header = (props: any) => {
-  const { data, loading, error } = useQuery(GET_LIST_COUNT_AND_CATEGORE_COUNT, {
+  const { data, loading } = useQuery(GET_LIST_COUNT_AND_CATEGORE_COUNT, {
     fetchPolicy: 'network-only'
   })
 

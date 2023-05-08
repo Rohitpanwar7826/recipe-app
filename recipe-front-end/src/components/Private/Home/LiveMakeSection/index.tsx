@@ -1,6 +1,9 @@
 import React from 'react'
+import useLiveRecipe from './hooks/useLiveRecipe'
 
 const LiveMakeSection = () => {
+  const recipes = useLiveRecipe();
+  console.log(recipes)
   return (
     <>
       <div className='w-100 row col-md-12 bg-dark mx-0 my-4'>

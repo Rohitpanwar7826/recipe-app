@@ -10,14 +10,13 @@ import { GET_LIST_COUNT_AND_CATEGORE_COUNT } from '../../../Header/gql_list_coun
 import { isEmpty } from 'lodash';
 
 const List = ({ list, refetchQueriesComp = [] }) => {
-  const { category_id: CategoreID } = useParams();
   const likeLoadingId = useRef();
 
   const [listData, setListData] = useState(list)
   const [createLike, { loading, error }] = useMutation(CREATE_LIKE,
     {
       refetchQueries: [GET_LIST_COUNT_AND_CATEGORE_COUNT],
-      onCompleted(data, clientOptions) {
+      onCompleted() {
         updatedLoadingMessageToSuccess(likeLoadingId.current, "Successfully")
       },
       onError(error, clientOptions) {
