@@ -25,12 +25,11 @@ const useRandomRecipie = () => {
     }
   
     socket.onclose = function (event) {
-      alert("Server connection closed")
+      console.log(event)
     }
   
     socket.onerror =  function (error) {
       alert(error.message)
-      console.log(error)
     }
   }, [])
 
