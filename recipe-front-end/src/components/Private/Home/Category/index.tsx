@@ -7,7 +7,6 @@ import { errorMessageDark, updatedLoadingMessage, updatedLoadingMessageToError, 
 import { Id } from "react-toastify";
 import { CATEGORY_Name } from "../../../store/LikeTypeName";
 import { GET_LIST_COUNT_AND_CATEGORE_COUNT } from "../../../Header/gql_list_count_and_categore_count";
-import { GET_FAV_CATEGORIES } from "../../Favourite/CategoreFav/gql_state";
 
 interface categoryPropTypes {
   category: {
@@ -15,15 +14,16 @@ interface categoryPropTypes {
     name: string,
     totalLikes: number,
     isLiked: boolean
-  }
+  },
+  refetchQueriesComp: any
 }
 
-const Category = ({ category }: categoryPropTypes) => {
+const Category = ({ category , refetchQueriesComp = []}: categoryPropTypes) => {
   const likeLoadingId = useRef<Id>('');
   const [categoreData, setCategoreData ] = useState(category);
   const [createLike, { loading, error }] = useMutation(CREATE_LIKE,
     {
-      refetchQueries: [GET_LIST_COUNT_AND_CATEGORE_COUNT, GET_FAV_CATEGORIES],
+      refetchQueries: [GET_LIST_COUNT_AND_CATEGORE_COUNT, ...refetchQueriesComp],
       onCompleted(data, clientOptions) {
         updatedLoadingMessageToSuccess(likeLoadingId.current, "Successfuly")
         if (data.like.success) setCategoreData(data.like.response)

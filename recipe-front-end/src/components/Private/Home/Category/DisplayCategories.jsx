@@ -2,13 +2,13 @@
 import { isEmpty } from "lodash";
 import Category from "../Category";
 
-function DisplayCategories({categoriesData}) {
+function DisplayCategories({categoriesData, refetchQuriesComp=[]}) {
   return (
     <div className="my-4">
       <div className="row">
         {
           categoriesData?.map((category) => (
-            < Category category={category} key={category.id} />
+            < Category category={category} key={category.id} refetchQueriesComp={refetchQuriesComp} />
           ))
         }
       </div>

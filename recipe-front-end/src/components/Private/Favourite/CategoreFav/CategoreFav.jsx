@@ -14,7 +14,7 @@ const CategoreFav = () => {
   return (
     <>
       < Heading title="Favorite Categorie's" />
-      < DisplayCategories categoriesData={data.favCategories} />
+      < DisplayCategories categoriesData={data.favCategories} refetchQuriesComp={[GET_FAV_CATEGORIES]} />
     </>
   )
 }
