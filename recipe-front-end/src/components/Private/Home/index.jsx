@@ -20,11 +20,11 @@ function Home(props) {
 
   return (
     <>
-      < Heading title="RANDOM RECEIPIES..." />
+      < Heading title="RANDOM RECEIPES..." />
       < RandomRecipie />
-      < Heading title="Live RECEIPIES..." />
+      < Heading title="Live RECEIPES..." />
       < LiveMakeSection />
-      < Heading title="ALL RECEIPIES CATEGORIES..." />
+      < Heading title="ALL RECEIPES CATEGORIES..." />
       < DisplayCategories categoriesData={data?.categories}/>
     </>
   )

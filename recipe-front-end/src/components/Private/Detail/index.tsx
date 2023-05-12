@@ -10,7 +10,9 @@ const Detail = () => {
   const {data, loading, error} = useQuery(GET_DETAIL, {
     variables: {
       listId
-    }
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'no-cache',
   })
 
   if(loading) < Loader />

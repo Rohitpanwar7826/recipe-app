@@ -11,7 +11,7 @@ function DisplayCategories({ categoriesData, title }) {
         <div className="row">
           {
             categoriesData?.map((category) => (
-              < Category category={category.likeable} key={category.id + category.user.id} />
+              < Category category={category.likeable} key={category.likeable.id + category.user.id} />
             ))
           }
         </div>
