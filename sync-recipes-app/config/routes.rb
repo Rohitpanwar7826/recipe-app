@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
   # mount ActionCable.server => '/cable'
   
-  get '/live_recipes_broad_casting', to: "live_recipes#index"
-  get "/start_live_recipes", to: "live_recipes#start_live_recipe"
+  get "/start_live_recipes", to: "home#start_live_recipe"
   get "/broad_cast_random_recipies", to: "home#start_broad_cast_random_recipie"
   root 'home#index'
 end

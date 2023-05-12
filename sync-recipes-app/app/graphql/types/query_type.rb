@@ -49,11 +49,17 @@ module Types
     def detail(list_id:)
       list = List.find_by(id: list_id)
       detail = list&.detail
+      process_for_create_live_imake(context[:current_user_id], detail)
       {
         success: detail.nil? ? false : true,
         list_name: detail.nil? ? nil : list.name,
         result:  detail.nil? ? nil : detail,
       }
+    end
+
+    def process_for_create_live_imake(current_user_id, detail)
+      return if !detail.present?
+      CreateLiveImakeJob.perform_later(current_user_id, detail.id)
     end
 
     def login(email:, password:)
