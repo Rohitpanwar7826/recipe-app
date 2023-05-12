@@ -30,7 +30,6 @@ const useRandomRecipie = () => {
   
     socket.onerror =  function (error) {
       alert(error.message)
-      console.log(error)
     }
   }, [])
 
